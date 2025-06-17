@@ -31,9 +31,6 @@ local.properties
 *.iml
 *.hprof
 .cxx/
-*.keystore
-!debug.keystore
-.kotlin/
 
 # node.js
 #
@@ -55,6 +52,7 @@ yarn-error.log
 
 # Bundle artifact
 *.jsbundle
+*.bundle
 
 # Ruby / CocoaPods
 **/Pods/
