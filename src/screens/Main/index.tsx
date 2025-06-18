@@ -1,14 +1,13 @@
 import React from 'react';
 import { ActivityIndicator, FlatList, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
 import { IItem } from '@organic/api/types';
+import { Item } from '@organic/components';
 import { RootStackList, RootStackNavigation } from '@organic/navigation/types';
 
-import Item from './Item';
-
 import styles from './styles';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const ITEMS: IItem[] = [
   {

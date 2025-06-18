@@ -1,4 +1,5 @@
-import { NavigationProp, RouteProp } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { IItem } from '@organic/api/types';
 
@@ -14,4 +15,4 @@ export type RootStackParamList = {
 
 export type RootStackRoute<T extends RootStackList> = RouteProp<RootStackParamList, T>;
 
-export type RootStackNavigation = NavigationProp<RootStackParamList>;
+export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
