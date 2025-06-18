@@ -9,7 +9,7 @@ import Navigation from '@organic/navigation';
 
 export default function App(): React.JSX.Element {
   return (
-    <RealmProvider schema={[Product]} schemaVersion={1}>
+    <RealmProvider schema={[Product]} schemaVersion={2}>
       <GestureHandlerRootView>
         <NavigationContainer theme={APP_THEME}>
           <Navigation />

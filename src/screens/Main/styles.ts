@@ -23,7 +23,10 @@ export default StyleSheet.create({
   },
 
   contentContainer: {
-    gap: 16,
     padding: 16,
+  },
+
+  separator: {
+    height: 16,
   },
 });

@@ -1,8 +1,9 @@
 import React from 'react';
-import { ActivityIndicator, FlatList, Image, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useQuery } from '@realm/react';
+import { FlashList } from '@shopify/flash-list';
 
 import LogoImage from '@organic/assets/images/logo.png';
 import { Item } from '@organic/components';
@@ -16,7 +17,7 @@ export default function MainScreen() {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<RootStackNavigation>();
 
-  useData();
+  const { isNextPageExists, fetchData } = useData();
 
   const products = useQuery(Product);
 
@@ -28,7 +29,9 @@ export default function MainScreen() {
     <Item item={item} onPress={() => openItem(item)} />
   );
 
-  const keyExtractor = (item: Product) => `item_${item._id}`;
+  const renderSeparator = () => <View style={styles.separator} />;
+
+  const keyExtractor = (item: Product) => `item_${item.id}`;
 
   return (
     <View style={styles.container}>
@@ -37,12 +40,21 @@ export default function MainScreen() {
 
         <Text style={styles.title}>Fitness & healthy food</Text>
       </View>
-      <FlatList
-        contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom || 16 }]}
+
+      <FlashList
+        contentContainerStyle={{
+          ...styles.contentContainer,
+          paddingBottom: insets.bottom || styles.contentContainer.padding,
+        }}
         data={products}
+        estimatedItemSize={200}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
-        ListFooterComponent={<ActivityIndicator color="#909090" />}
+        scrollEventThrottle={16}
+        onEndReached={fetchData}
+        onEndReachedThreshold={1}
+        ItemSeparatorComponent={renderSeparator}
+        ListFooterComponent={isNextPageExists ? <ActivityIndicator color="#909090" /> : null}
       />
     </View>
   );
