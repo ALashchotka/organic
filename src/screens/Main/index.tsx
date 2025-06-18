@@ -1,8 +1,9 @@
 import React from 'react';
-import { ActivityIndicator, FlatList, View } from 'react-native';
+import { ActivityIndicator, FlatList, Image, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
+import LogoImage from '@organic/assets/images/logo.png';
 import { IItem } from '@organic/api/types';
 import { Item } from '@organic/components';
 import { RootStackList, RootStackNavigation } from '@organic/navigation/types';
@@ -57,6 +58,11 @@ export default function MainScreen() {
 
   return (
     <View style={styles.container}>
+      <View style={[styles.header, { paddingTop: insets.top || 16 }]}>
+        <Image style={styles.logo} source={LogoImage} />
+
+        <Text style={styles.title}>Fitness & healthy food</Text>
+      </View>
       <FlatList
         contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom || 16 }]}
         data={ITEMS}
