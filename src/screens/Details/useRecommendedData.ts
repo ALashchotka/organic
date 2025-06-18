@@ -3,7 +3,7 @@ import { useQuery } from '@realm/react';
 
 import { Product } from '@organic/models/Product';
 
-export default function useRecommendedData() {
+export default function useRecommendedData(currentItem: Product) {
   const products = useQuery(Product);
 
   const [data, setData] = useState<Product[]>([]);
@@ -13,7 +13,7 @@ export default function useRecommendedData() {
       const shuffledData = [...products].sort(() => 0.5 - Math.random());
       const itemsCount = Math.floor(Math.random() * 6) + 5;
 
-      setData(shuffledData.slice(0, itemsCount));
+      setData(shuffledData.slice(0, itemsCount).filter((item) => item.id !== currentItem.id));
     }
   }, [products]);
 

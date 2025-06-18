@@ -28,6 +28,11 @@ export default function useData() {
       const products = response.data.products;
 
       realm.write(() => {
+        // Comment for caching
+        if (currentPage === 1) {
+          realm.delete(realm.objects(Product));
+        }
+
         products.forEach((product: ProductFromServer) => {
           realm.create(
             Product,

@@ -25,8 +25,8 @@ export default function MainScreen() {
     navigation.navigate(RootStackList.DETAILS, { item });
   };
 
-  const renderItem = ({ item }: { item: Product }) => (
-    <Item item={item} onPress={() => openItem(item)} />
+  const renderItem = ({ item, index }: { item: Product; index: number }) => (
+    <Item index={index} item={item} onPress={() => openItem(item)} />
   );
 
   const renderSeparator = () => <View style={styles.separator} />;
