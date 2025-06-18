@@ -10,6 +10,18 @@ export default StyleSheet.create({
     flex: 1,
   },
 
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  headerTitle: {
+    marginLeft: 16,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
   content: {
     padding: 16,
   },

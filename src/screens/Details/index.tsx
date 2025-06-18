@@ -4,64 +4,49 @@ import FastImage from 'react-native-fast-image';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import { IItem } from '@organic/api/types';
+import ChevronIcon from '@organic/assets/svg/chevron.svg';
 import { Item } from '@organic/components';
+import { Product } from '@organic/models/Product';
 import { RootStackList, RootStackNavigation, RootStackRoute } from '@organic/navigation/types';
 
 import CircularProgressItem from './CircularProgressItem';
 import LinearProgressItem from './LinearProgressItem';
 
 import styles, { BUTTON_HEIGHT } from './styles';
-
-const ITEMS: IItem[] = [
-  {
-    id: 1,
-    title: 'First item',
-    description: 'First item description',
-    image:
-      'https://images.unsplash.com/photo-1579353977828-2a4eab540b9a?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2FtcGxlfGVufDB8fDB8fHww',
-  },
-  {
-    id: 2,
-    title: 'Second item',
-    description: 'Second item description',
-    image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjYSMQJToE4z85CJF5Zuey5tWS6FfapjEKMA&s',
-  },
-  {
-    id: 3,
-    title: 'Third item',
-    description: 'Third item description',
-    image:
-      'https://fujiframe.com/assets/images/_3000x2000_fit_center-center_85_none/10085/xhs2-fuji-70-300-Amazilia-Hummingbird.webp',
-  },
-  {
-    id: 4,
-    title: 'Forth item',
-    description: 'Forth item description',
-    image:
-      'https://photographylife.com/wp-content/uploads/2023/05/Nikon-Z8-Official-Samples-00002.jpg',
-  },
-];
+import useRecommendedData from './useRecommendedData';
 
 export default function DetailsScreen() {
+  const insets = useSafeAreaInsets();
+
   const navigation = useNavigation<RootStackNavigation>();
   const route = useRoute<RootStackRoute<RootStackList.DETAILS>>();
 
-  const insets = useSafeAreaInsets();
+  const recommendedItems = useRecommendedData();
 
   const item = useMemo(() => route.params.item, [route]);
 
-  const openItem = (item: IItem) => {
+  const onBack = () => {
+    navigation.goBack();
+  };
+
+  const openItem = (item: Product) => {
     navigation.push(RootStackList.DETAILS, { item });
   };
 
-  const renderItem = ({ item }: { item: IItem }) => (
+  const renderItem = ({ item }: { item: Product }) => (
     <Item style={styles.recommendedItem} item={item} onPress={() => openItem(item)} />
   );
 
   return (
-    <>
+    <View style={styles.container}>
+      <View style={[styles.header, { marginTop: insets.top || 16 }]}>
+        <TouchableOpacity onPress={onBack} hitSlop={16}>
+          <ChevronIcon width={24} height={24} />
+        </TouchableOpacity>
+
+        <Text style={styles.headerTitle}>{item.title}</Text>
+      </View>
+
       <ScrollView
         style={styles.container}
         contentContainerStyle={{ paddingBottom: BUTTON_HEIGHT + (insets.bottom || 16) }}>
@@ -75,13 +60,9 @@ export default function DetailsScreen() {
             }}
           />
 
-          <Text style={styles.title} numberOfLines={1}>
-            {item.title}
-          </Text>
+          <Text style={styles.title}>{item.title}</Text>
 
-          <Text style={styles.description} numberOfLines={2}>
-            {item.description}
-          </Text>
+          <Text style={styles.description}>{item.description}</Text>
         </View>
 
         <View style={styles.sectionContainer}>
@@ -105,7 +86,7 @@ export default function DetailsScreen() {
 
           <FlatList
             contentContainerStyle={styles.recommendedContentContainer}
-            data={ITEMS}
+            data={recommendedItems}
             renderItem={renderItem}
             horizontal
           />
@@ -117,6 +98,6 @@ export default function DetailsScreen() {
         activeOpacity={0.7}>
         <Text style={styles.buttonText}>Edit</Text>
       </TouchableOpacity>
-    </>
+    </View>
   );
 }

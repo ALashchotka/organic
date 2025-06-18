@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { IItem } from '@organic/api/types';
+import { Product } from '@organic/models/Product';
 
 export enum RootStackList {
   MAIN = 'Main',
@@ -10,7 +10,7 @@ export enum RootStackList {
 
 export type RootStackParamList = {
   [RootStackList.MAIN]: undefined;
-  [RootStackList.DETAILS]: { item: IItem };
+  [RootStackList.DETAILS]: { item: Product };
 };
 
 export type RootStackRoute<T extends RootStackList> = RouteProp<RootStackParamList, T>;

@@ -1,21 +1,14 @@
 import React from 'react';
-import {
-  Image,
-  StyleProp,
-  Text,
-  TouchableOpacity,
-  TouchableOpacityProps,
-  View,
-} from 'react-native';
+import { Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 
-import { IItem } from '@organic/api/types';
+import { Product } from '@organic/models/Product';
 
 import styles from './styles';
 
 interface Props {
-  item: IItem;
+  item: Product;
   onPress: () => void;
   style?: TouchableOpacityProps['style'];
 }
