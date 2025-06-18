@@ -10,16 +10,18 @@ import { Item } from '@organic/components';
 import { Product } from '@organic/models/Product';
 import { RootStackList, RootStackNavigation } from '@organic/navigation/types';
 
+import TagsList from './TagsList';
+
 import styles from './styles';
 import useData from './useData';
+import useTags from './useTags';
 
 export default function MainScreen() {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<RootStackNavigation>();
 
-  const { isNextPageExists, fetchData } = useData();
-
-  const products = useQuery(Product);
+  const { tags, selectedTags, toggleTag } = useTags();
+  const { products, isNextPageExists, fetchData } = useData(selectedTags);
 
   const openItem = (item: Product) => {
     navigation.navigate(RootStackList.DETAILS, { item });
@@ -40,6 +42,8 @@ export default function MainScreen() {
 
         <Text style={styles.title}>Fitness & healthy food</Text>
       </View>
+
+      <TagsList onTagPress={toggleTag} tags={tags} selectedTags={selectedTags} />
 
       <FlashList
         contentContainerStyle={{

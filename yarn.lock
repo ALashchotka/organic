@@ -3626,6 +3626,7 @@ __metadata:
     eslint-plugin-react: ^7.24.0
     eslint-plugin-unused-imports: ^3.1.0
     jest: ^29.6.3
+    lodash.uniq: ^4.5.0
     metro-react-native-babel-preset: ^0.72.3
     node-telegram-bot-api: ^0.58.0
     patch-package: ^8.0.0
@@ -8243,6 +8244,13 @@ __metadata:
   version: 4.1.1
   resolution: "lodash.throttle@npm:4.1.1"
   checksum: 129c0a28cee48b348aef146f638ef8a8b197944d4e9ec26c1890c19d9bf5a5690fe11b655c77a4551268819b32d27f4206343e30c78961f60b561b8608c8c805
+  languageName: node
+  linkType: hard
+
+"lodash.uniq@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "lodash.uniq@npm:4.5.0"
+  checksum: a4779b57a8d0f3c441af13d9afe7ecff22dd1b8ce1129849f71d9bbc8e8ee4e46dfb4b7c28f7ad3d67481edd6e51126e4e2a6ee276e25906d10f7140187c392d
   languageName: node
   linkType: hard
 

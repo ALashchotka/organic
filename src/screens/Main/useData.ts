@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { UpdateMode } from 'realm';
-import { useRealm } from '@realm/react';
+import { useQuery, useRealm } from '@realm/react';
 import axios from 'axios';
 
 import { Product } from '@organic/models/Product';
@@ -9,11 +9,21 @@ interface ProductFromServer extends Omit<Product, 'image'> {
   images: string[];
 }
 
-export default function useData() {
+export default function useData(tags: string[]) {
   const realm = useRealm();
+
+  const products = useQuery(Product);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [isNextPageExists, setIsNextPageExists] = useState(true);
+
+  const data = useMemo(() => {
+    if (!tags.length) {
+      return products;
+    }
+
+    return products.filter((item) => item.tags.some((tag) => tags.includes(tag)));
+  }, [products, tags]);
 
   const fetchData = async () => {
     try {
@@ -22,7 +32,7 @@ export default function useData() {
       }
 
       const response = await axios(
-        `https://dummyjson.com/products?limit=10&skip=${(currentPage - 1) * 10}&select=id,title,description,images`,
+        `https://dummyjson.com/products?limit=10&skip=${(currentPage - 1) * 10}&select=id,title,description,images,tags`,
       );
 
       const products = response.data.products;
@@ -41,6 +51,7 @@ export default function useData() {
               title: product.title || '',
               description: product.description || '',
               image: product.images[0] || '',
+              tags: product.tags,
             },
             UpdateMode.Modified,
           );
@@ -58,5 +69,5 @@ export default function useData() {
     fetchData();
   }, []);
 
-  return { fetchData, isNextPageExists };
+  return { products: data, fetchData, isNextPageExists };
 }
