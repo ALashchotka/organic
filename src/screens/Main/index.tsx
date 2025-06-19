@@ -58,7 +58,7 @@ export default function MainScreen() {
         onEndReachedThreshold={1}
         ItemSeparatorComponent={renderSeparator}
         ListFooterComponent={
-          isNextPageExists ? <ActivityIndicator style={styles.footer} color="#909090" /> : null
+          isNextPageExists ? <ActivityIndicator style={styles.footer} color="#909090" /> : undefined
         }
       />
     </View>
