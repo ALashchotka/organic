@@ -29,4 +29,8 @@ export default StyleSheet.create({
   separator: {
     height: 16,
   },
+
+  footer: {
+    marginVertical: 16,
+  },
 });

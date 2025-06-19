@@ -2,7 +2,6 @@ import React from 'react';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { useQuery } from '@realm/react';
 import { FlashList } from '@shopify/flash-list';
 
 import LogoImage from '@organic/assets/images/logo.png';
@@ -58,7 +57,9 @@ export default function MainScreen() {
         onEndReached={fetchData}
         onEndReachedThreshold={1}
         ItemSeparatorComponent={renderSeparator}
-        ListFooterComponent={isNextPageExists ? <ActivityIndicator color="#909090" /> : null}
+        ListFooterComponent={
+          isNextPageExists ? <ActivityIndicator style={styles.footer} color="#909090" /> : null
+        }
       />
     </View>
   );
