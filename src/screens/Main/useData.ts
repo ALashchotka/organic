@@ -3,6 +3,7 @@ import { UpdateMode } from 'realm';
 import { useQuery, useRealm } from '@realm/react';
 import axios from 'axios';
 
+import { CLEAR_DB_ON_EVERY_LAUNCH } from '@organic/constants';
 import { Product } from '@organic/models/Product';
 
 interface ProductFromServer extends Omit<Product, 'image'> {
@@ -38,8 +39,7 @@ export default function useData(tags: string[]) {
       const products = response.data.products;
 
       realm.write(() => {
-        // Comment for caching
-        if (currentPage === 1) {
+        if (CLEAR_DB_ON_EVERY_LAUNCH && currentPage === 1) {
           realm.delete(realm.objects(Product));
         }
 
