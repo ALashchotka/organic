@@ -2,7 +2,6 @@ import React from 'react';
 import { Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
-import { SharedElement } from 'react-navigation-shared-element';
 import Animated, { SlideInDown } from 'react-native-reanimated';
 
 import { Product } from '@organic/models/Product';
@@ -25,16 +24,14 @@ export function Item({ item, index, onPress, style }: Props) {
       style={[styles.container, style]}
       activeOpacity={0.8}
       onPress={onPress}>
-      <SharedElement style={styles.image} id={`item.${item.id}.image`}>
-        <FastImage
-          style={styles.image}
-          source={{
-            uri: item.image,
-            priority: FastImage.priority.normal,
-            cache: FastImage.cacheControl.immutable,
-          }}
-        />
-      </SharedElement>
+      <FastImage
+        style={styles.image}
+        source={{
+          uri: item.image,
+          priority: FastImage.priority.normal,
+          cache: FastImage.cacheControl.immutable,
+        }}
+      />
 
       <View style={styles.content}>
         <LinearGradient colors={['#00000000', '#000000FF']} style={styles.contentGradient} />

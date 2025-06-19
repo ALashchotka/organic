@@ -3,7 +3,6 @@ import { FlatList, ScrollView, Text, TouchableOpacity, View } from 'react-native
 import FastImage from 'react-native-fast-image';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { SharedElement } from 'react-navigation-shared-element';
 
 import ChevronIcon from '@organic/assets/svg/chevron.svg';
 import { Item, ResponsiveImage } from '@organic/components';
@@ -52,16 +51,14 @@ export default function DetailsScreen() {
         style={styles.container}
         contentContainerStyle={{ paddingBottom: BUTTON_HEIGHT + (insets.bottom || 16) }}>
         <View style={styles.content}>
-          <SharedElement id={`item.${item.id}.image`}>
-            <ResponsiveImage
-              style={styles.image}
-              source={{
-                uri: item.image,
-                priority: FastImage.priority.normal,
-                cache: FastImage.cacheControl.immutable,
-              }}
-            />
-          </SharedElement>
+          <ResponsiveImage
+            style={styles.image}
+            source={{
+              uri: item.image,
+              priority: FastImage.priority.normal,
+              cache: FastImage.cacheControl.immutable,
+            }}
+          />
 
           <Text style={styles.title}>{item.title}</Text>
 

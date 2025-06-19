@@ -1,11 +1,11 @@
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import MainScreen from '@organic/screens/Main';
 import DetailsScreen from '@organic/screens/Details';
 
 import { RootStackList } from './types';
 
-const Stack = createSharedElementStackNavigator();
+const Stack = createStackNavigator();
 
 export default function Navigation() {
   return (
@@ -30,13 +30,7 @@ export default function Navigation() {
         }),
       }}>
       <Stack.Screen name={RootStackList.MAIN} component={MainScreen} />
-      <Stack.Screen
-        name={RootStackList.DETAILS}
-        component={DetailsScreen}
-        sharedElements={(route) => {
-          return [`item.${route.params.item.id}.image`];
-        }}
-      />
+      <Stack.Screen name={RootStackList.DETAILS} component={DetailsScreen} />
     </Stack.Navigator>
   );
 }

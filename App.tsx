@@ -1,20 +1,22 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { RealmProvider } from '@realm/react';
 
 import { APP_THEME } from '@organic/constants';
-import { Product } from '@organic/models/Product';
+import { useRealm } from '@organic/hooks';
 import Navigation from '@organic/navigation';
+import { RealmContext } from '@organic/models';
 
 export default function App(): React.JSX.Element {
+  const realm = useRealm();
+
   return (
-    <RealmProvider schema={[Product]} schemaVersion={3}>
+    <RealmContext.Provider value={realm}>
       <GestureHandlerRootView>
         <NavigationContainer theme={APP_THEME}>
           <Navigation />
         </NavigationContainer>
       </GestureHandlerRootView>
-    </RealmProvider>
+    </RealmContext.Provider>
   );
 }

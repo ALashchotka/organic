@@ -1,4 +1,4 @@
-import { Realm } from '@realm/react';
+import Realm from 'realm';
 
 export class Product extends Realm.Object {
   id!: number;

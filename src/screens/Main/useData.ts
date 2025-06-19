@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
 import { UpdateMode } from 'realm';
-import { useQuery, useRealm } from '@realm/react';
 import axios from 'axios';
 
 import { CLEAR_DB_ON_EVERY_LAUNCH } from '@organic/constants';
+import { useProducts, useRealm } from '@organic/hooks';
 import { Product } from '@organic/models/Product';
 
 interface ProductFromServer extends Omit<Product, 'image'> {
@@ -12,8 +12,7 @@ interface ProductFromServer extends Omit<Product, 'image'> {
 
 export default function useData(tags: string[]) {
   const realm = useRealm();
-
-  const products = useQuery(Product);
+  const products = useProducts() as Product[];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [isNextPageExists, setIsNextPageExists] = useState(true);
@@ -38,7 +37,7 @@ export default function useData(tags: string[]) {
 
       const products = response.data.products;
 
-      realm.write(() => {
+      realm?.write(() => {
         if (CLEAR_DB_ON_EVERY_LAUNCH && currentPage === 1) {
           realm.delete(realm.objects(Product));
         }

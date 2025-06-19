@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react';
-import { useQuery } from '@realm/react';
 import uniq from 'lodash.uniq';
 
-import { Product } from '@organic/models/Product';
+import { useProducts } from '@organic/hooks';
+import { Product } from '@organic/models';
 
 export default function useTags() {
-  const products = useQuery(Product);
+  const products = useProducts() as Product[];
 
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 

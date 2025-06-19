@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery } from '@realm/react';
 
+import { useProducts } from '@organic/hooks';
 import { Product } from '@organic/models/Product';
 
 export default function useRecommendedData(currentItem: Product) {
-  const products = useQuery(Product);
+  const products = useProducts();
 
   const [data, setData] = useState<Product[]>([]);
 
